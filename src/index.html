@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KeyCoak - JS</title>
+  </head>
+  <body>
+    <h1>Hello, Pobx</h1>
+    <p>Authenticated: <span id="isAuthenticated">Loading...</span></p>
+    <p>userData: <span id="userData">Loading...</span></p>
+    <p>Access Token: <span id="token">Loading...</span></p>
+
+    <button onclick="login()">Login Keycloak</button>
+    <button onclick="logout()">Logout Keycloak</button>
+
+    <script src="./node_modules/keycloak-js/dist/keycloak.js"></script>
+    <script>
+      var keycloak = new Keycloak("http://localhost:4200/keycloak.json");
+      var isAuthenticated = false;
+      document.getElementById("isAuthenticated").innerHTML = isAuthenticated;
+      keycloak
+        .init({
+          // onLoad: "login-required",
+          onLoad: "check-sso",
+          silentCheckSsoRedirectUri:
+            window.location.origin + "/silent-check-sso.html",
+        })
+        .then(function (authenticated) {
+          document.getElementById("token").innerHTML = "Login ซะก่อน";
+          document.getElementById("userData").innerHTML = "Login ซะก่อน";
+          isAuthenticated = authenticated;
+          if (isAuthenticated) {
+            document.getElementById(
+              "isAuthenticated"
+            ).innerHTML = isAuthenticated;
+            loadUserData();
+          }
+        })
+        .catch(function () {
+          alert("failed to initialize");
+        });
+
+      function loadUserData() {
+        keycloak.loadUserInfo().then(function (response) {
+          document.getElementById("token").innerHTML = keycloak.token;
+          document.getElementById("userData").innerHTML = JSON.stringify(
+            response
+          );
+        });
+      }
+
+      function login() {
+        keycloak.login();
+      }
+
+      function logout() {
+        keycloak.logout();
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "lab-keycloak-js",
+  "version": "1.0.0",
+  "description": "My learning keycloak with javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "geidtiphong@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "keycloak-js": "^11.0.3"
+  }
+}
