@@ -25,7 +25,7 @@
   "actionTokenGeneratedByAdminLifespan": 43200,
   "actionTokenGeneratedByUserLifespan": 300,
   "enabled": true,
-  "sslRequired": "external",
+  "sslRequired": "none",
   "registrationAllowed": false,
   "registrationEmailAsUsername": false,
   "rememberMe": false,
@@ -276,6 +276,7 @@
           "attributes": {}
         }
       ],
+      "dontet-core-api": [],
       "security-admin-console": [
         {
           "id": "cbd7dfce-4570-458e-86c6-49dc02cc1c92",
@@ -590,18 +591,18 @@
       "clientId": "angular-app-demo",
       "name": "Angular Application Demo",
       "description": "My learning authorize with Keycloak",
-      "rootUrl": "http://localhost:4200/",
-      "adminUrl": "http://localhost:4200/",
+      "rootUrl": "",
+      "adminUrl": "",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "secret": "**********",
       "redirectUris": [
-        "http://localhost:4200/*"
+        "*"
       ],
       "webOrigins": [
-        "http://localhost:4200"
+        "*"
       ],
       "notBefore": 0,
       "bearerOnly": false,
@@ -615,6 +616,7 @@
       "protocol": "openid-connect",
       "attributes": {
         "saml.assertion.signature": "false",
+        "access.token.lifespan": "120",
         "saml.force.post.binding": "false",
         "saml.multivalued.roles": "false",
         "saml.encrypt": "false",
@@ -626,17 +628,16 @@
         "tls.client.certificate.bound.access.tokens": "false",
         "saml.authnstatement": "false",
         "display.on.consent.screen": "false",
+        "pkce.code.challenge.method": "",
         "saml.onetimeuse.condition": "false"
       },
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": true,
       "nodeReRegistrationTimeout": -1,
       "defaultClientScopes": [
-        "web-origins",
+        "api-service",
         "role_list",
-        "profile",
-        "roles",
-        "email"
+        "profile"
       ],
       "optionalClientScopes": [
         "address",
@@ -670,6 +671,65 @@
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": false,
       "nodeReRegistrationTimeout": 0,
+      "defaultClientScopes": [
+        "web-origins",
+        "role_list",
+        "profile",
+        "roles",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ]
+    },
+    {
+      "id": "e4e256ef-b5ca-4a09-874e-8ca3912c9c26",
+      "clientId": "dontet-core-api",
+      "name": "My api",
+      "rootUrl": "https://localhost:5001/",
+      "adminUrl": "https://localhost:5001/",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "**********",
+      "redirectUris": [
+        "https://localhost:5001/*"
+      ],
+      "webOrigins": [
+        "https://localhost:5001"
+      ],
+      "notBefore": 0,
+      "bearerOnly": true,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "saml.assertion.signature": "false",
+        "saml.force.post.binding": "false",
+        "saml.multivalued.roles": "false",
+        "saml.encrypt": "false",
+        "saml.server.signature": "false",
+        "saml.server.signature.keyinfo.ext": "false",
+        "exclude.session.state.from.auth.response": "false",
+        "saml_force_name_id_format": "false",
+        "saml.client.signature": "false",
+        "tls.client.certificate.bound.access.tokens": "false",
+        "saml.authnstatement": "false",
+        "display.on.consent.screen": "false",
+        "saml.onetimeuse.condition": "false"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": true,
+      "nodeReRegistrationTimeout": -1,
       "defaultClientScopes": [
         "web-origins",
         "role_list",
@@ -1166,6 +1226,29 @@
             "access.token.claim": "true",
             "claim.name": "upn",
             "jsonType.label": "String"
+          }
+        }
+      ]
+    },
+    {
+      "id": "8330bf59-d278-46e8-bd83-3bc97fea2e06",
+      "name": "api-service",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "true"
+      },
+      "protocolMappers": [
+        {
+          "id": "37466b48-4fa8-4d24-9882-b6e59948d817",
+          "name": "my-app-audience",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.client.audience": "angular-app-demo",
+            "id.token.claim": "false",
+            "access.token.claim": "true"
           }
         }
       ]
