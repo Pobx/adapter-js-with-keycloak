@@ -10,13 +10,14 @@
     <p>Authenticated: <span id="isAuthenticated">Loading...</span></p>
     <p>userData: <span id="userData">Loading...</span></p>
     <p>Access Token: <span id="token">Loading...</span></p>
-    <p>
-      ข้อมูลจาก API(หลัง Login แล้ว) : <span id="data">ยังบ่ได้ Login</span>
-    </p>
 
     <button onclick="login()">Login Keycloak</button>
     <button onclick="logout()">Logout Keycloak</button>
     <button onclick="getData()">แสดงข้อมูล เบิงกะหนา</button>
+
+    <p>
+      ข้อมูลจาก API(หลัง Login แล้ว) : <br> <span id="data">ยังบ่ได้ Login</span>
+    </p>
 
     <script src="./node_modules/keycloak-js/dist/keycloak.js"></script>
     <script>
@@ -69,17 +70,15 @@
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            'Authorization': 'Bearer ' + keycloak.token,
+            Authorization: "Bearer " + keycloak.token,
           },
         };
 
         fetch("https://localhost:5001/api/WeatherForecast", options)
-          // .then((response) => response.json())
+          .then((response) => response.json())
           .then(
-            (response) =>
-              (document.getElementById("data").innerHTML = JSON.stringify(
-                response
-              ))
+            (data) =>
+              (document.getElementById("data").innerHTML = JSON.stringify(data))
           )
           .catch(
             (error) =>
