@@ -21,6 +21,8 @@ namespace api {
       Environment = env;
     }
 
+    readonly string SiteCorsPolicy = "SiteCorsPolicy";
+
     public IConfiguration Configuration { get; }
     public IWebHostEnvironment Environment { get; }
 
@@ -30,6 +32,12 @@ namespace api {
       services.AddControllers ();
       services.AddSwaggerGen (c => {
         c.SwaggerDoc ("v1", new OpenApiInfo { Title = "api", Version = "v1" });
+      });
+
+      services.AddCors (options => {
+        options.AddPolicy (SiteCorsPolicy, builder => {
+          builder.AllowAnyOrigin ().AllowAnyMethod ().AllowAnyHeader ();
+        });
       });
 
       services.AddAuthentication (options => {
@@ -52,6 +60,8 @@ namespace api {
         app.UseSwagger ();
         app.UseSwaggerUI (c => c.SwaggerEndpoint ("/swagger/v1/swagger.json", "api v1"));
       }
+
+      app.UseCors (SiteCorsPolicy);
 
       app.UseHttpsRedirection ();
 

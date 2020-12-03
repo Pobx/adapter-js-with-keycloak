@@ -10,9 +10,13 @@
     <p>Authenticated: <span id="isAuthenticated">Loading...</span></p>
     <p>userData: <span id="userData">Loading...</span></p>
     <p>Access Token: <span id="token">Loading...</span></p>
+    <p>
+      ข้อมูลจาก API(หลัง Login แล้ว) : <span id="data">ยังบ่ได้ Login</span>
+    </p>
 
     <button onclick="login()">Login Keycloak</button>
     <button onclick="logout()">Logout Keycloak</button>
+    <button onclick="getData()">แสดงข้อมูล เบิงกะหนา</button>
 
     <script src="./node_modules/keycloak-js/dist/keycloak.js"></script>
     <script>
@@ -29,8 +33,10 @@
         .then(function (authenticated) {
           document.getElementById("token").innerHTML = "Login ซะก่อน";
           document.getElementById("userData").innerHTML = "Login ซะก่อน";
+
           isAuthenticated = authenticated;
           if (isAuthenticated) {
+            document.getElementById("data").innerHTML = "Login แล้ว";
             document.getElementById(
               "isAuthenticated"
             ).innerHTML = isAuthenticated;
@@ -56,6 +62,23 @@
 
       function logout() {
         keycloak.logout();
+      }
+
+      function getData() {
+        fetch("https://localhost:5001/api/WeatherForecast")
+          // .then((response) => response.json())
+          .then(
+            (response) =>
+              (document.getElementById("data").innerHTML = JSON.stringify(
+                response
+              ))
+          )
+          .catch(
+            (error) =>
+              (document.getElementById("data").innerHTML = JSON.stringify(
+                error
+              ))
+          );
       }
     </script>
   </body>
