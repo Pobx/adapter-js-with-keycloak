@@ -34,6 +34,7 @@
             document.getElementById(
               "isAuthenticated"
             ).innerHTML = isAuthenticated;
+            document.getElementById("token").innerHTML = keycloak.token;
             loadUserData();
           }
         })
@@ -43,7 +44,6 @@
 
       function loadUserData() {
         keycloak.loadUserInfo().then(function (response) {
-          document.getElementById("token").innerHTML = keycloak.token;
           document.getElementById("userData").innerHTML = JSON.stringify(
             response
           );

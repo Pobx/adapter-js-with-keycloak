@@ -35,24 +35,12 @@ namespace api {
       services.AddAuthentication (options => {
           options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
           options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-
         })
         .AddJwtBearer (options => {
           options.Authority = Configuration["Jwt:Authority"];
           options.Audience = Configuration["Jwt:Audience"];
           options.RequireHttpsMetadata = false;
 
-          options.Events = new JwtBearerEvents () {
-            OnAuthenticationFailed = context => {
-              context.NoResult ();
-              context.Response.StatusCode = 500;
-              context.Response.ContentType = "text/plain";
-              if (Environment.IsDevelopment ()) {
-                return context.Response.WriteAsync (context.Exception.ToString ());
-              }
-              return context.Response.WriteAsync ("An error occured processing your authentication.");
-            }
-          };
         });
 
     }
@@ -69,6 +57,7 @@ namespace api {
 
       app.UseRouting ();
 
+      app.UseAuthentication ();
       app.UseAuthorization ();
 
       app.UseEndpoints (endpoints => {
