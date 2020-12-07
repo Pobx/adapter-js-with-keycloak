@@ -16,12 +16,13 @@
     <button onclick="getData()">แสดงข้อมูล เบิงกะหนา</button>
 
     <p>
-      ข้อมูลจาก API(หลัง Login แล้ว) : <br> <span id="data">ยังบ่ได้ Login</span>
+      ข้อมูลจาก API(หลัง Login แล้ว) : <br />
+      <span id="data">ยังบ่ได้ Login</span>
     </p>
 
     <script src="./node_modules/keycloak-js/dist/keycloak.js"></script>
     <script>
-      var keycloak = new Keycloak("http://localhost:4200/keycloak.json");
+      var keycloak = new Keycloak("keycloak.json");
       var isAuthenticated = false;
       document.getElementById("isAuthenticated").innerHTML = isAuthenticated;
       keycloak
@@ -83,7 +84,7 @@
           .catch(
             (error) =>
               (document.getElementById("data").innerHTML = JSON.stringify(
-                error
+                `พ้อ Errors: ${error}`
               ))
           );
       }
