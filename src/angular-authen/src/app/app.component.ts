@@ -40,9 +40,13 @@ export class AppComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.accessToken = this.oauthService.getAccessToken();
-    this.expiration = this.oauthService.getAccessTokenExpiration();
-    this.expirationDate = new Date(this.expiration);
+    setTimeout(() => {
+      this.accessToken = this.oauthService.getAccessToken();
+      this.expiration = this.oauthService.getAccessTokenExpiration();
+      this.expirationDate =
+        this.expiration === null ? null : new Date(this.expiration);
+    }, 1000);
+
     this.oauthService.silentRefreshRedirectUri =
       window.location.origin + '/silent-refresh.html';
     this.oauthService.setupAutomaticSilentRefresh({}, 'access_token');
@@ -68,6 +72,7 @@ export class AppComponent implements OnInit {
 
   public loadAccessToken() {
     this.accessToken = this.oauthService.getAccessToken();
+    this.expiration = this.oauthService.getAccessTokenExpiration();
   }
 
   loadApi() {
