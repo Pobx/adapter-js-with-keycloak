@@ -32,11 +32,7 @@ export class AppComponent implements OnInit {
     clientId: 'angular-app-demo',
     scope: 'openid profile',
     responseType: 'code',
-    // at_hash is not present in JWT token
-    // disableAtHashCheck: true,
     showDebugInformation: true,
-    // silentRefreshRedirectUri: window.location.origin + '/silent-refresh.html',
-    // useSilentRefresh: true,
   };
 
   ngOnInit() {
@@ -50,10 +46,6 @@ export class AppComponent implements OnInit {
     this.oauthService.silentRefreshRedirectUri =
       window.location.origin + '/silent-refresh.html';
     this.oauthService.setupAutomaticSilentRefresh({}, 'access_token');
-    // this.oauthService
-    //   .silentRefresh()
-    //   .then((info) => (this.oAuthEvent = info))
-    //   .catch((err) => (this.oAuthEventError = err));
   }
 
   private configure() {
@@ -76,11 +68,6 @@ export class AppComponent implements OnInit {
   }
 
   loadApi() {
-    // tslint:disable-next-line: one-variable-per-declaration
-    // const options = {
-    //   headers: new HttpHeaders().set('Authorization',  `Bearer ${this.oauthService.getAccessToken())}`)
-    // }
-
     this.http
       .get(`https://localhost:5001/api/WeatherForecast`, {
         headers: new HttpHeaders().set(
