@@ -1,0 +1,15 @@
+<button class="btn btn-default" (click)="login()">Login</button>
+<button class="btn btn-default" (click)="logoff()">Logout</button>
+<br />
+<button class="btn btn-default" (click)="loadAccessToken()">loadAccessToken</button>
+<button class="btn btn-default" (click)="loadApi()">loadApi</button>
+
+<p>{{ accessToken }}</p>
+<p>{{ expiration }}</p>
+<p>{{ expirationDate }}</p>
+
+<hr />
+
+<p>{{ oAuthEvent | json }}</p>
+<p>{{ oAuthEventError | json }}</p>
+<p>{{ response | json }}</p>

@@ -1,0 +1,13 @@
+<html>
+  <body>
+    <p>Loading...</p>
+    <script>
+      setTimeout(() => {
+        (window.opener || window.parent).postMessage(
+          location.hash || "#" + location.search,
+          location.origin
+        );
+      }, 1000);
+    </script>
+  </body>
+</html>

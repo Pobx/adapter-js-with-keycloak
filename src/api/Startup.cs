@@ -63,7 +63,7 @@ namespace api {
 
       app.UseCors (SiteCorsPolicy);
 
-      app.UseHttpsRedirection ();
+      // app.UseHttpsRedirection ();
 
       app.UseRouting ();
 
